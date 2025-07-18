@@ -1,0 +1,15 @@
+[Unit]
+Description=Flask Blog
+After=network.target
+
+[Service]
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/blog
+Environment=PATH=/home/pi/blog/venv/bin
+ExecStart=/home/pi/blog/venv/bin/gunicorn -c gunicorn_config.py app:app
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
